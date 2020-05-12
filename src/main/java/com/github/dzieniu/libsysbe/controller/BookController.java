@@ -19,8 +19,8 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping
-    public List<BookDto> getAll(){
-        return bookService.getAll();
+    public List<BookDto> findBook(@RequestParam(value = "search", required = false) String searchCriteria){
+        return bookService.findBook(searchCriteria);
     }
 
     @PostMapping

@@ -7,11 +7,12 @@ import com.github.dzieniu.libsysbe.entity.Book;
 import com.github.dzieniu.libsysbe.enums.BookGenre;
 import com.github.dzieniu.libsysbe.enums.BookStatus;
 import com.github.dzieniu.libsysbe.repository.BookRepository;
+import com.github.dzieniu.libsysbe.repository.spec.BookSpecificationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,14 +23,11 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public List<BookDto> getAll(){
-        return bookRepository.findAll().stream()
-                .map(BookMapper::toDto).collect(Collectors.toList());
-    }
-
     // Wyszukanie ksiązki (bibliotekarz/czytelnik)
     public List<BookDto> findBook(String searchCriteria){
-        return new ArrayList<>();
+        Specification<Book> spec = new BookSpecificationBuilder<Book>().buildSpecification(searchCriteria);
+        return bookRepository.findAll(spec).stream()
+                .map(BookMapper::toDto).collect(Collectors.toList());
     }
 
     // Dodanie książki (bibliotekarz)
