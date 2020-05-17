@@ -11,8 +11,10 @@ import com.github.dzieniu.libsysbe.repository.BookRepository;
 import com.github.dzieniu.libsysbe.repository.ReaderRepository;
 import com.github.dzieniu.libsysbe.repository.ReservationRepository;
 import com.github.dzieniu.libsysbe.repository.UserRepository;
+import com.github.dzieniu.libsysbe.security.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -39,6 +41,9 @@ public class DataLoader implements CommandLineRunner {
 
     @Autowired
     private ReservationRepository reservationRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     @Transactional
@@ -85,8 +90,9 @@ public class DataLoader implements CommandLineRunner {
         bookRepository.save(book4);
 
         User user1 = User.builder()
-                .username("jacekp")
-                .email("jacekplacek@gmail.com")
+                .email("jacekp@gmail.com")
+                .password(bCryptPasswordEncoder.encode("jacekp"))
+                .role(Role.ROLE_READER)
                 .firstName("Jacek")
                 .lastName("Placek")
                 .build();
@@ -100,8 +106,9 @@ public class DataLoader implements CommandLineRunner {
         readerRepository.save(reader1);
 
         User user2 = User.builder()
-                .username("kungro")
                 .email("kungro@gmail.com")
+                .password(bCryptPasswordEncoder.encode("kungro"))
+                .role(Role.ROLE_READER)
                 .firstName("Kunegunda")
                 .lastName("Grodzka")
                 .build();

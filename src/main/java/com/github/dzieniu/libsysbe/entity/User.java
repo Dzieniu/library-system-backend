@@ -1,5 +1,6 @@
 package com.github.dzieniu.libsysbe.entity;
 
+import com.github.dzieniu.libsysbe.security.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,12 +21,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    // narazie zrobie login po username'ie, potem ew. przerobie na email i to pole można dropnąć
-    @Column(nullable = false, unique = true)
-    private String username;
-
     @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private Role role;
 
     @Column(nullable = false)
     private String firstName;
