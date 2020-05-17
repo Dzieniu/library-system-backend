@@ -11,13 +11,21 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ReservationDto {
 
-    private long id;
+    private long reservationId;
+
+    private String bookTitle;
+
+    private String bookAuthor;
+
+    private String bookGenre;
+
+    private String bookIsbn;
+
+    private String bookStatus;
+
+    private String bookReleaseDate;
 
     private String reservationDate;
 
     private String returnDate;
-
-    private long readerId;
-
-    private long bookId;
 }

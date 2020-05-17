@@ -48,8 +48,8 @@ public class ReservationService {
             Reservation reservation = new Reservation();
             reservation.setReader(readerResult.get());
             reservation.setBook(bookResult.get());
-            reservation.setReservation_date(null);
-            reservation.setReturn_date(null);
+            reservation.setReservationDate(null);
+            reservation.setReturnDate(null);
             reservationRepository.save(reservation);
         } else throw new EntityNotFoundException("Book or reader id is incorrect does not exist, book could not be reserved!");
     }
@@ -60,13 +60,13 @@ public class ReservationService {
         Optional<Reservation> reservationResult = reservationRepository.findById(reservationId);
         if(reservationResult.isPresent()) {
             Reservation reservation = reservationResult.get();
-            reservation.setReservation_date(LocalDateTime.now());
-            reservation.setReturn_date(null);
+            reservation.setReservationDate(LocalDateTime.now());
+            reservation.setReturnDate(null);
             reservationRepository.save(reservation);
             Book book = reservation.getBook();
             book.setStatus(BookStatus.BORROWED);
             Reader reader = reservation.getReader();
-            reader.setNum_borrowed(reader.getNum_borrowed() + 1);
+            reader.setNumBorrowed(reader.getNumBorrowed() + 1);
             readerRepository.save(reader);
             bookRepository.save(book);
         } else throw new EntityNotFoundException("Reservation with id: " + reservationId + " was not found, and book could not be lent!");
@@ -78,13 +78,13 @@ public class ReservationService {
         Optional<Reservation> reservationResult = reservationRepository.findById(reservationId);
         if(reservationResult.isPresent()) {
             Reservation reservation = reservationResult.get();
-            reservation.setReturn_date(LocalDateTime.now());
+            reservation.setReturnDate(LocalDateTime.now());
             reservationRepository.save(reservation);
             Book book = reservation.getBook();
             book.setStatus(BookStatus.AVAILABLE);
             bookRepository.save(book);
             Reader reader = reservation.getReader();
-            reader.setNum_borrowed(reader.getNum_borrowed() - 1);
+            reader.setNumBorrowed(reader.getNumBorrowed() - 1);
             readerRepository.save(reader);
         } else throw new EntityNotFoundException("Reservation with id: " + reservationId + " was not found, and could not be completed!");
     }

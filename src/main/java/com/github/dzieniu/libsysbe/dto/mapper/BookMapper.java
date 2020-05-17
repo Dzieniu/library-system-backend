@@ -15,7 +15,7 @@ public class BookMapper {
                 .genre(book.getGenre().name())
                 .isbn(book.getIsbn())
                 .status(book.getStatus().name())
-                .release_date(DateMapper.localDateToString(book.getRelease_date()))
+                .release_date(DateMapper.localDateToString(book.getReleaseDate()))
                 .build();
     }
 
@@ -26,7 +26,7 @@ public class BookMapper {
                 .genre(BookGenre.valueOf(bookDto.getGenre()))
                 .isbn(bookDto.getIsbn())
                 .status(BookStatus.valueOf(bookDto.getStatus()))
-                .release_date(DateMapper.stringToLocalDate(bookDto.getRelease_date()))
+                .releaseDate(DateMapper.stringToLocalDate(bookDto.getRelease_date()))
                 .build();
     }
 }

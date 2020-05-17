@@ -20,10 +20,10 @@ public class Reader {
     private long id;
 
     @Column(nullable = false)
-    private int num_borrowed;
+    private int numBorrowed;
 
     @Column(nullable = false)
-    private int cash_penalty;
+    private int cashPenalty;
 
     @OneToOne(fetch = FetchType.LAZY)
     private User user;

@@ -21,10 +21,10 @@ public class Reservation {
     private long id;
 
     @Column
-    private LocalDateTime reservation_date;
+    private LocalDateTime reservationDate;
 
     @Column
-    private LocalDateTime return_date;
+    private LocalDateTime returnDate;
 
     @OneToOne(fetch = FetchType.LAZY)
     private Reader reader;

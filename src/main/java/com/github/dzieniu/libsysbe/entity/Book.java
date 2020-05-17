@@ -38,7 +38,7 @@ public class Book {
     private BookStatus status;
 
     @Column(nullable = false)
-    private LocalDateTime release_date;
+    private LocalDateTime releaseDate;
 
     @OneToOne(mappedBy = "book", fetch = FetchType.LAZY)
     private Reservation reservation;

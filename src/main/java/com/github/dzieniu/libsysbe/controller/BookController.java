@@ -18,11 +18,13 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    // wyszukiwanie książek
     @GetMapping
     public List<BookDto> findBook(@RequestParam(value = "search", required = false) String searchCriteria){
         return bookService.findBook(searchCriteria);
     }
 
+    // dodawanie
     @PostMapping
     public void insertBook(@RequestBody BookDto bookDto){
         bookService.insertBook(bookDto);

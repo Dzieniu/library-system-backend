@@ -50,17 +50,17 @@ public class DataLoader implements CommandLineRunner {
                 .genre(BookGenre.GATUNEK1)
                 .isbn("fdsfsd")
                 .status(BookStatus.AVAILABLE)
-                .release_date(LocalDateTime.of(1992, 12, 7, 22, 13))
+                .releaseDate(LocalDateTime.of(1992, 12, 7, 22, 13))
                 .build();
         bookRepository.save(book1);
 
         Book book2 = Book.builder()
                 .title("Szklankom po lapkach")
                 .author("Twoj stary")
-                .genre(BookGenre.GATUNEK1)
+                .genre(BookGenre.GATUNEK2)
                 .isbn("fdsfsd")
                 .status(BookStatus.AVAILABLE)
-                .release_date(LocalDateTime.of(1992, 12, 7, 22, 13))
+                .releaseDate(LocalDateTime.of(1992, 12, 7, 22, 13))
                 .build();
         bookRepository.save(book2);
 
@@ -70,7 +70,7 @@ public class DataLoader implements CommandLineRunner {
                 .genre(BookGenre.GATUNEK1)
                 .isbn("fdsfsd")
                 .status(BookStatus.AVAILABLE)
-                .release_date(LocalDateTime.of(1992, 12, 7, 22, 13))
+                .releaseDate(LocalDateTime.of(1992, 12, 7, 22, 13))
                 .build();
         bookRepository.save(book3);
 
@@ -80,7 +80,7 @@ public class DataLoader implements CommandLineRunner {
                 .genre(BookGenre.GATUNEK1)
                 .isbn("fdsfsd")
                 .status(BookStatus.AVAILABLE)
-                .release_date(LocalDateTime.of(1992, 12, 7, 22, 13))
+                .releaseDate(LocalDateTime.of(1992, 12, 7, 22, 13))
                 .build();
         bookRepository.save(book4);
 
@@ -93,8 +93,8 @@ public class DataLoader implements CommandLineRunner {
         userRepository.save(user1);
 
         Reader reader1 = Reader.builder()
-                .num_borrowed(0)
-                .cash_penalty(0)
+                .numBorrowed(0)
+                .cashPenalty(0)
                 .user(user1)
                 .build();
         readerRepository.save(reader1);
@@ -108,26 +108,30 @@ public class DataLoader implements CommandLineRunner {
         userRepository.save(user2);
 
         Reader reader2 = Reader.builder()
-                .num_borrowed(0)
-                .cash_penalty(0)
+                .numBorrowed(0)
+                .cashPenalty(0)
                 .user(user2)
                 .build();
         readerRepository.save(reader2);
 
         Reservation reservation1 = Reservation.builder()
-                .reservation_date(null)
-                .return_date(null)
+                .reservationDate(null)
+                .returnDate(null)
                 .reader(reader1)
                 .book(book1)
                 .build();
         reservationRepository.save(reservation1);
+        book1.setStatus(BookStatus.RESERVED);
+        bookRepository.save(book1);
 
         Reservation reservation2 = Reservation.builder()
-                .reservation_date(null)
-                .return_date(null)
+                .reservationDate(null)
+                .returnDate(null)
                 .reader(reader2)
                 .book(book2)
                 .build();
         reservationRepository.save(reservation2);
+        book2.setStatus(BookStatus.RESERVED);
+        bookRepository.save(book2);
     }
 }

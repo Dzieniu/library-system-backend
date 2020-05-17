@@ -20,7 +20,7 @@ public class ReservationController {
     private ReservationService reservationService;
 
     @GetMapping
-    public List<ReservationDto> findReservation(@RequestParam(value = "search", required = false, defaultValue = "") String search){
+    public List<ReservationDto> findReservation(@RequestParam(value = "username", required = false, defaultValue = "") String search){
         return reservationService.findReservation(search);
     }
 
