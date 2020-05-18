@@ -1,0 +1,34 @@
+
+version: "3"
+services:
+  libsysdb:
+    image: postgres:latest
+    container_name: libsysdb
+    volumes:
+      - libsys_data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=libsysdb
+    restart: unless-stopped
+    networks:
+      - default
+  libsysbe:
+    image: dzieniu/libsysbe:latest
+    container_name: libsysbe
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    depends_on:
+      - libsysdb
+    links:
+      - libsysdb
+    networks:
+      - default
+volumes:
+  libsys_data:
+networks:
+  default:

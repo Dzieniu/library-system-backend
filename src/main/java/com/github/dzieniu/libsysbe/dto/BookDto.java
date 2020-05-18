@@ -23,5 +23,5 @@ public class BookDto {
 
     private String status;
 
-    private String release_date;
+    private String releaseDate;
 }

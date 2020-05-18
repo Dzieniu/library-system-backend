@@ -31,7 +31,14 @@ public class AuthenticationController {
     @Autowired
     private UserRepository userRepository;
 
-    // Logowanie się
+    /*
+        logowanie sie (obecnie nie jest wymagane) - zwraca token jwt
+        przyklad: http://localhost:8080/authenticate
+        {
+	        "username": "jacekp@gmail.com",
+	        "password": "jacekp"
+        }
+     */
     @PostMapping
     public ResponseEntity<?> getAuthenticationToken(@RequestBody UserCredentials userCredentials) {
 

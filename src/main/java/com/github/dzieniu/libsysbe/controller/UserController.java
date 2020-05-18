@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/*
+    http://localhost:8080/users
+*/
+
 @RestController
 @RequestMapping("users")
 public class UserController {
@@ -15,6 +19,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /*
+        rejestracja uzytkownika
+        przyklad: http://localhost:8080/users
+        {
+            "email":"dawidxdzien@gmail.com",
+            "password":"madafaka",
+            "firstName":"Dawid",
+            "lastName":"Dzien"
+        }
+     */
     @PostMapping
     public void signUp(@RequestBody ReaderDto readerDto){
         userService.signUp(readerDto);

@@ -32,7 +32,9 @@ public class BookService {
 
     // Dodanie książki (bibliotekarz)
     public void insertBook(BookDto bookDto){
-        bookRepository.save(BookMapper.toEntity(bookDto));
+        Book book = BookMapper.toEntity(bookDto);
+        book.setStatus(BookStatus.AVAILABLE);
+        bookRepository.save(book);
     }
 
     // Edycja książki (bibliotekarz)
@@ -45,7 +47,7 @@ public class BookService {
             if(bookDto.getGenre()!=null) updatedBook.setGenre(BookGenre.valueOf(bookDto.getGenre()));
             if(bookDto.getIsbn()!=null) updatedBook.setIsbn(bookDto.getIsbn());
             if(bookDto.getStatus()!=null) updatedBook.setStatus(BookStatus.valueOf(bookDto.getStatus()));
-            if(bookDto.getRelease_date()!=null) updatedBook.setReleaseDate(DateMapper.stringToLocalDate(bookDto.getRelease_date()));
+            if(bookDto.getReleaseDate()!=null) updatedBook.setReleaseDate(DateMapper.stringToLocalDate(bookDto.getReleaseDate()));
             bookRepository.save(updatedBook);
         } else throw new EntityNotFoundException("Book with id: " + id + " was not found, and could not be updated!");
     }
