@@ -50,44 +50,24 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) {
 
         Book book1 = Book.builder()
-                .title("Sierotka ma rysia")
-                .author("Albert Einstein")
-                .genre(BookGenre.GATUNEK1)
-                .isbn("fdsfsd")
+                .title("Quo Vadis")
+                .author("Henryk Sienkiewicz")
+                .genre(BookGenre.powiesc)
+                .isbn("978-83-7670-236-0")
                 .status(BookStatus.AVAILABLE)
-                .releaseDate(LocalDateTime.of(1992, 12, 7, 22, 13))
+                .releaseDate(LocalDateTime.of(1895, 3, 26, 0, 0))
                 .build();
         bookRepository.save(book1);
 
         Book book2 = Book.builder()
-                .title("Szklankom po lapkach")
-                .author("Twoj stary")
-                .genre(BookGenre.GATUNEK2)
-                .isbn("fdsfsd")
+                .title("Ogniem i mieczem")
+                .author("Henryk Sienkiewicz")
+                .genre(BookGenre.powiesc)
+                .isbn("248-81-7670-636-5")
                 .status(BookStatus.AVAILABLE)
-                .releaseDate(LocalDateTime.of(1992, 12, 7, 22, 13))
+                .releaseDate(LocalDateTime.of(1884, 7, 1, 0, 0))
                 .build();
         bookRepository.save(book2);
-
-        Book book3 = Book.builder()
-                .title("Kartony4fun")
-                .author("Hanka Mostowiak")
-                .genre(BookGenre.GATUNEK1)
-                .isbn("fdsfsd")
-                .status(BookStatus.AVAILABLE)
-                .releaseDate(LocalDateTime.of(1992, 12, 7, 22, 13))
-                .build();
-        bookRepository.save(book3);
-
-        Book book4 = Book.builder()
-                .title("Debesta, tu tego")
-                .author("Jan Lesgos")
-                .genre(BookGenre.GATUNEK1)
-                .isbn("fdsfsd")
-                .status(BookStatus.AVAILABLE)
-                .releaseDate(LocalDateTime.of(1992, 12, 7, 22, 13))
-                .build();
-        bookRepository.save(book4);
 
         User user1 = User.builder()
                 .email("jacekp@gmail.com")
@@ -134,11 +114,11 @@ public class DataLoader implements CommandLineRunner {
         Reservation reservation2 = Reservation.builder()
                 .reservationDate(null)
                 .returnDate(null)
-                .reader(reader2)
+                .reader(reader1)
                 .book(book2)
                 .build();
         reservationRepository.save(reservation2);
-        book2.setStatus(BookStatus.RESERVED);
+        book2.setStatus(BookStatus.BORROWED);
         bookRepository.save(book2);
     }
 }

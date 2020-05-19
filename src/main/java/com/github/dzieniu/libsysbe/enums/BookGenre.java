@@ -1,6 +1,15 @@
 package com.github.dzieniu.libsysbe.enums;
 
 public enum BookGenre {
-    GATUNEK1,
-    GATUNEK2
+    powiesc,
+    dramat,
+    wiersz,
+    historyczna,
+    fantasy,
+    horror,
+    komedia,
+    autobiografia,
+    kryminal,
+    tragedia,
+    przygodowa
 }

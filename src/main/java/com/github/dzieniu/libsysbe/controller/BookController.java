@@ -36,7 +36,7 @@ public class BookController {
             "author":"Krzysztof Gonciarz",
             "genre":"GATUNEK1",
             "isbn":"sgsgregre",
-            "releaseDate":"07-12-1992 22:13"
+            "releaseDate":"07-12-1992"
         }
      */
     @PostMapping
