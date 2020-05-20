@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -28,6 +30,6 @@ public class Reader {
     @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @OneToOne(mappedBy = "reader", fetch = FetchType.LAZY)
-    private Reservation reservation;
+    @OneToMany(mappedBy = "reader", fetch = FetchType.LAZY)
+    private List<Reservation> reservations = new ArrayList<>();
 }

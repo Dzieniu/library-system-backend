@@ -85,6 +85,9 @@ public class ReservationService {
             bookRepository.save(book);
             Reader reader = reservation.getReader();
             reader.setNumBorrowed(reader.getNumBorrowed() - 1);
+            if(reservation.getReservationDate().plusWeeks(2).isBefore(LocalDateTime.now())){
+                reader.setCashPenalty(reader.getCashPenalty() + 15);
+            }
             readerRepository.save(reader);
         } else throw new EntityNotFoundException("Reservation with id: " + reservationId + " was not found, and could not be completed!");
     }

@@ -26,7 +26,8 @@ public class Reservation {
     @Column
     private LocalDateTime returnDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reader_id",nullable = false)
     private Reader reader;
 
     @OneToOne(fetch = FetchType.LAZY)

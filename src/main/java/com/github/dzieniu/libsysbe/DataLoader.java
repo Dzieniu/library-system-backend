@@ -69,12 +69,42 @@ public class DataLoader implements CommandLineRunner {
                 .build();
         bookRepository.save(book2);
 
+        Book book3 = Book.builder()
+                .title("Potop")
+                .author("Henryk Sienkiewicz")
+                .genre(BookGenre.powiesc)
+                .isbn("173-84-7650-236-2")
+                .status(BookStatus.AVAILABLE)
+                .releaseDate(LocalDateTime.of(1992, 12, 7, 0, 0))
+                .build();
+        bookRepository.save(book3);
+
+        Book book4 = Book.builder()
+                .title("Dziady")
+                .author("Adam Mickiewicz")
+                .genre(BookGenre.powiesc)
+                .isbn("558-83-5570-336-4")
+                .status(BookStatus.AVAILABLE)
+                .releaseDate(LocalDateTime.of(1882, 1, 1, 0, 0))
+                .build();
+        bookRepository.save(book4);
+
+        Book book5 = Book.builder()
+                .title("Pan Tadeusz")
+                .author("Adam Mickiewicz")
+                .genre(BookGenre.powiesc)
+                .isbn("548-83-2270-258-6")
+                .status(BookStatus.AVAILABLE)
+                .releaseDate(LocalDateTime.of(1883, 1, 1, 0, 0))
+                .build();
+        bookRepository.save(book5);
+
         User user1 = User.builder()
-                .email("jacekp@gmail.com")
-                .password(bCryptPasswordEncoder.encode("jacekp"))
+                .email("dawidxdzien@gmail.com")
+                .password(bCryptPasswordEncoder.encode("madafaka"))
                 .role(Role.ROLE_READER)
-                .firstName("Jacek")
-                .lastName("Placek")
+                .firstName("Dawid")
+                .lastName("Dzien")
                 .build();
         userRepository.save(user1);
 
@@ -86,17 +116,17 @@ public class DataLoader implements CommandLineRunner {
         readerRepository.save(reader1);
 
         User user2 = User.builder()
-                .email("kungro@gmail.com")
-                .password(bCryptPasswordEncoder.encode("kungro"))
+                .email("jacekp@gmail.com")
+                .password(bCryptPasswordEncoder.encode("jacekp"))
                 .role(Role.ROLE_READER)
-                .firstName("Kunegunda")
-                .lastName("Grodzka")
+                .firstName("Jacek")
+                .lastName("Placek")
                 .build();
         userRepository.save(user2);
 
         Reader reader2 = Reader.builder()
                 .numBorrowed(0)
-                .cashPenalty(0)
+                .cashPenalty(15)
                 .user(user2)
                 .build();
         readerRepository.save(reader2);
@@ -120,5 +150,17 @@ public class DataLoader implements CommandLineRunner {
         reservationRepository.save(reservation2);
         book2.setStatus(BookStatus.BORROWED);
         bookRepository.save(book2);
+        reader1.setNumBorrowed(1);
+        readerRepository.save(reader1);
+
+        Reservation reservation3 = Reservation.builder()
+                .reservationDate(null)
+                .returnDate(null)
+                .reader(reader2)
+                .book(book3)
+                .build();
+        reservationRepository.save(reservation3);
+        book3.setStatus(BookStatus.RESERVED);
+        bookRepository.save(book3);
     }
 }

@@ -9,6 +9,7 @@ import com.github.dzieniu.libsysbe.enums.BookStatus;
 import com.github.dzieniu.libsysbe.repository.BookRepository;
 import com.github.dzieniu.libsysbe.repository.spec.BookSpecificationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +25,9 @@ public class BookService {
     private BookRepository bookRepository;
 
     // Wyszukanie ksiązki (bibliotekarz/czytelnik)
-    public List<BookDto> findBook(String searchCriteria){
+    public List<BookDto> findBook(String searchCriteria, Pageable pageable){
         Specification<Book> spec = new BookSpecificationBuilder<Book>().buildSpecification(searchCriteria);
-        return bookRepository.findAll(spec).stream()
+        return bookRepository.findAll(spec, pageable).stream()
                 .map(BookMapper::toDto).collect(Collectors.toList());
     }
 

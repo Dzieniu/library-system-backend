@@ -3,6 +3,9 @@ package com.github.dzieniu.libsysbe.controller;
 import com.github.dzieniu.libsysbe.dto.BookDto;
 import com.github.dzieniu.libsysbe.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,11 +24,14 @@ public class BookController {
 
     /*
         wyszukiwanie książek
-        przyklad: http://localhost:8080/books?search=title%sierotka,status:available
+        przyklad: http://localhost:8080/books?search=author%mickiewicz,status:available&sort=releaseDate
     */
     @GetMapping
-    public List<BookDto> findBook(@RequestParam(value = "search", required = false) String searchCriteria){
-        return bookService.findBook(searchCriteria);
+    public List<BookDto> findBook(
+            @RequestParam(value = "search", required = false) String searchCriteria,
+            @PageableDefault(size = 20, direction = Sort.Direction.ASC, sort = "title", value = 30) Pageable pageable
+    ){
+        return bookService.findBook(searchCriteria, pageable);
     }
 
     /*
