@@ -6,6 +6,7 @@ import com.github.dzieniu.libsysbe.entity.Book;
 import com.github.dzieniu.libsysbe.entity.Reader;
 import com.github.dzieniu.libsysbe.entity.Reservation;
 import com.github.dzieniu.libsysbe.enums.BookStatus;
+import com.github.dzieniu.libsysbe.exception.NotFoundException;
 import com.github.dzieniu.libsysbe.repository.BookRepository;
 import com.github.dzieniu.libsysbe.repository.ReaderRepository;
 import com.github.dzieniu.libsysbe.repository.ReservationRepository;
@@ -51,7 +52,7 @@ public class ReservationService {
             reservation.setReservationDate(null);
             reservation.setReturnDate(null);
             reservationRepository.save(reservation);
-        } else throw new EntityNotFoundException("Book or reader id is incorrect does not exist, book could not be reserved!");
+        } else throw new NotFoundException("Book or reader id is incorrect does not exist, book could not be reserved!");
     }
 
     // Zatwierdzenie wypożyczenia książki (bibliotekarz)
@@ -69,7 +70,7 @@ public class ReservationService {
             reader.setNumBorrowed(reader.getNumBorrowed() + 1);
             readerRepository.save(reader);
             bookRepository.save(book);
-        } else throw new EntityNotFoundException("Reservation with id: " + reservationId + " was not found, and book could not be lent!");
+        } else throw new NotFoundException("Reservation with id: " + reservationId + " was not found, and book could not be lent!");
     }
 
     // Zwrócenie książki (bibliotekarz)
@@ -89,6 +90,6 @@ public class ReservationService {
                 reader.setCashPenalty(reader.getCashPenalty() + 15);
             }
             readerRepository.save(reader);
-        } else throw new EntityNotFoundException("Reservation with id: " + reservationId + " was not found, and could not be completed!");
+        } else throw new NotFoundException("Reservation with id: " + reservationId + " was not found, and could not be completed!");
     }
 }

@@ -1,16 +1,10 @@
 package com.github.dzieniu.libsysbe;
 
 
-import com.github.dzieniu.libsysbe.entity.Book;
-import com.github.dzieniu.libsysbe.entity.Reader;
-import com.github.dzieniu.libsysbe.entity.Reservation;
-import com.github.dzieniu.libsysbe.entity.User;
+import com.github.dzieniu.libsysbe.entity.*;
 import com.github.dzieniu.libsysbe.enums.BookGenre;
 import com.github.dzieniu.libsysbe.enums.BookStatus;
-import com.github.dzieniu.libsysbe.repository.BookRepository;
-import com.github.dzieniu.libsysbe.repository.ReaderRepository;
-import com.github.dzieniu.libsysbe.repository.ReservationRepository;
-import com.github.dzieniu.libsysbe.repository.UserRepository;
+import com.github.dzieniu.libsysbe.repository.*;
 import com.github.dzieniu.libsysbe.security.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -38,6 +32,9 @@ public class DataLoader implements CommandLineRunner {
 
     @Autowired
     private ReaderRepository readerRepository;
+
+    @Autowired
+    private LibrarianRepository librarianRepository;
 
     @Autowired
     private ReservationRepository reservationRepository;
@@ -107,7 +104,6 @@ public class DataLoader implements CommandLineRunner {
                 .lastName("Dzien")
                 .build();
         userRepository.save(user1);
-
         Reader reader1 = Reader.builder()
                 .numBorrowed(0)
                 .cashPenalty(0)
@@ -123,7 +119,6 @@ public class DataLoader implements CommandLineRunner {
                 .lastName("Placek")
                 .build();
         userRepository.save(user2);
-
         Reader reader2 = Reader.builder()
                 .numBorrowed(0)
                 .cashPenalty(15)
@@ -131,8 +126,21 @@ public class DataLoader implements CommandLineRunner {
                 .build();
         readerRepository.save(reader2);
 
+        User user3 = User.builder()
+                .email("lukaszb@gmail.com")
+                .password(bCryptPasswordEncoder.encode("bruh"))
+                .role(Role.ROLE_LIBRARIAN)
+                .firstName("Łukasz")
+                .lastName("Betlej")
+                .build();
+        userRepository.save(user3);
+        Librarian librarian1 = Librarian.builder()
+                .user(user3)
+                .build();
+        librarianRepository.save(librarian1);
+
         Reservation reservation1 = Reservation.builder()
-                .reservationDate(null)
+                .reservationDate(LocalDateTime.now())
                 .returnDate(null)
                 .reader(reader1)
                 .book(book1)
@@ -142,7 +150,7 @@ public class DataLoader implements CommandLineRunner {
         bookRepository.save(book1);
 
         Reservation reservation2 = Reservation.builder()
-                .reservationDate(null)
+                .reservationDate(LocalDateTime.now())
                 .returnDate(null)
                 .reader(reader1)
                 .book(book2)
@@ -154,7 +162,7 @@ public class DataLoader implements CommandLineRunner {
         readerRepository.save(reader1);
 
         Reservation reservation3 = Reservation.builder()
-                .reservationDate(null)
+                .reservationDate(LocalDateTime.now())
                 .returnDate(null)
                 .reader(reader2)
                 .book(book3)

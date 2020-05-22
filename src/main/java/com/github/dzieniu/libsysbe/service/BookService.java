@@ -6,6 +6,7 @@ import com.github.dzieniu.libsysbe.dto.mapper.DateMapper;
 import com.github.dzieniu.libsysbe.entity.Book;
 import com.github.dzieniu.libsysbe.enums.BookGenre;
 import com.github.dzieniu.libsysbe.enums.BookStatus;
+import com.github.dzieniu.libsysbe.exception.NotFoundException;
 import com.github.dzieniu.libsysbe.repository.BookRepository;
 import com.github.dzieniu.libsysbe.repository.spec.BookSpecificationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -50,7 +50,7 @@ public class BookService {
             if(bookDto.getStatus()!=null) updatedBook.setStatus(BookStatus.valueOf(bookDto.getStatus()));
             if(bookDto.getReleaseDate()!=null) updatedBook.setReleaseDate(DateMapper.stringToLocalDate(bookDto.getReleaseDate()));
             bookRepository.save(updatedBook);
-        } else throw new EntityNotFoundException("Book with id: " + id + " was not found, and could not be updated!");
+        } else throw new NotFoundException("Book with id: " + id + " was not found, and could not be updated!");
     }
 
     // Usunięcie książki (bibliotekarz)
@@ -58,6 +58,6 @@ public class BookService {
         Optional<Book> bookResult = bookRepository.findById(id);
         if(bookResult.isPresent()) {
             bookRepository.delete(bookResult.get());
-        } else throw new EntityNotFoundException("Book with id: " + id + " was not found, and could not be deleted!");
+        } else throw new NotFoundException("Book with id: " + id + " was not found, and could not be deleted!");
     }
 }

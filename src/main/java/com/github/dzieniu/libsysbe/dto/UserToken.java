@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserDto {
+public class UserToken {
 
     private String email;
 
@@ -23,4 +23,6 @@ public class UserDto {
     private Integer numBorrowed;
 
     private Integer cashPenalty;
+
+    private String token;
 }
