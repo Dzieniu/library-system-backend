@@ -18,6 +18,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "inner join books on reservations.book_id = books.id\n" +
             "inner join readers on reservations.reader_id = readers.id\n" +
             "inner join users on readers.user_id = users.id\n" +
-            "where upper(users.email) like concat('%',upper(?1),'%') and return_date is null")
+            "where upper(users.email) like concat('%',upper(?1),'%') and is_open = true")
     List<ReservationInterface> findReservation(String search);
 }

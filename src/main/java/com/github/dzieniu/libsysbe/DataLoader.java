@@ -140,7 +140,8 @@ public class DataLoader implements CommandLineRunner {
         librarianRepository.save(librarian1);
 
         Reservation reservation1 = Reservation.builder()
-                .reservationDate(LocalDateTime.now())
+                .isOpen(true)
+                .reservationDate(null)
                 .returnDate(null)
                 .reader(reader1)
                 .book(book1)
@@ -150,8 +151,9 @@ public class DataLoader implements CommandLineRunner {
         bookRepository.save(book1);
 
         Reservation reservation2 = Reservation.builder()
+                .isOpen(true)
                 .reservationDate(LocalDateTime.now())
-                .returnDate(null)
+                .returnDate(LocalDateTime.now().plusWeeks(2))
                 .reader(reader1)
                 .book(book2)
                 .build();
@@ -162,7 +164,8 @@ public class DataLoader implements CommandLineRunner {
         readerRepository.save(reader1);
 
         Reservation reservation3 = Reservation.builder()
-                .reservationDate(LocalDateTime.now())
+                .isOpen(true)
+                .reservationDate(null)
                 .returnDate(null)
                 .reader(reader2)
                 .book(book3)

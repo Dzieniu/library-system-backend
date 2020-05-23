@@ -20,6 +20,9 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(nullable = false)
+    private boolean isOpen;
+
     @Column
     private LocalDateTime reservationDate;
 
@@ -30,6 +33,7 @@ public class Reservation {
     @JoinColumn(name = "reader_id",nullable = false)
     private Reader reader;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id",nullable = false)
     private Book book;
 }

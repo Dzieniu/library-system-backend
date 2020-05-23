@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -40,6 +42,6 @@ public class Book {
     @Column(nullable = false)
     private LocalDateTime releaseDate;
 
-    @OneToOne(mappedBy = "book", fetch = FetchType.LAZY)
-    private Reservation reservation;
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
+    private List<Reservation> reservations = new ArrayList<>();
 }
