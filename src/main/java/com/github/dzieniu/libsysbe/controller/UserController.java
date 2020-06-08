@@ -1,6 +1,6 @@
 package com.github.dzieniu.libsysbe.controller;
 
-import com.github.dzieniu.libsysbe.dto.ReaderDto;
+import com.github.dzieniu.libsysbe.dto.UserReaderDto;
 import com.github.dzieniu.libsysbe.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +28,7 @@ public class UserController {
         }
      */
     @PostMapping
-    public void signUp(@RequestBody ReaderDto readerDto){
-        userService.signUp(readerDto);
+    public void signUp(@RequestBody UserReaderDto userReaderDto){
+        userService.signUp(userReaderDto);
     }
 }

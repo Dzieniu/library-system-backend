@@ -23,10 +23,10 @@ public class Reservation {
     @Column(nullable = false)
     private boolean isOpen;
 
-    @Column
+    @Column(nullable = true)
     private LocalDateTime reservationDate;
 
-    @Column
+    @Column(nullable = true)
     private LocalDateTime returnDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

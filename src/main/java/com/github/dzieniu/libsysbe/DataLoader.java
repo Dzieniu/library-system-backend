@@ -139,6 +139,19 @@ public class DataLoader implements CommandLineRunner {
                 .build();
         librarianRepository.save(librarian1);
 
+        User user4 = User.builder()
+                .email("mknap@ur.edu.pl")
+                .password(bCryptPasswordEncoder.encode("password"))
+                .role(Role.ROLE_LIBRARIAN)
+                .firstName("Maksymilian")
+                .lastName("Knap")
+                .build();
+        userRepository.save(user4);
+        Librarian librarian2 = Librarian.builder()
+                .user(user4)
+                .build();
+        librarianRepository.save(librarian2);
+
         Reservation reservation1 = Reservation.builder()
                 .isOpen(true)
                 .reservationDate(null)

@@ -1,6 +1,6 @@
 package com.github.dzieniu.libsysbe.service;
 
-import com.github.dzieniu.libsysbe.dto.ReaderDto;
+import com.github.dzieniu.libsysbe.dto.UserReaderDto;
 import com.github.dzieniu.libsysbe.entity.Reader;
 import com.github.dzieniu.libsysbe.entity.User;
 import com.github.dzieniu.libsysbe.repository.ReaderRepository;
@@ -26,18 +26,19 @@ public class UserService {
 
     // Rejestracja czytelnika w systemie
     @Transactional
-    public void signUp(ReaderDto readerDto){
+    public void signUp(UserReaderDto userReaderDto){
         User user = User.builder()
-                .email(readerDto.getEmail())
-                .password(bCryptPasswordEncoder.encode(readerDto.getPassword()))
+                .email(userReaderDto.getEmail())
+                .password(bCryptPasswordEncoder.encode(userReaderDto.getPassword()))
                 .role(Role.ROLE_READER)
-                .firstName(readerDto.getFirstName())
-                .lastName(readerDto.getLastName())
+                .firstName(userReaderDto.getFirstName())
+                .lastName(userReaderDto.getLastName())
                 .build();
         userRepository.save(user);
         Reader reader = Reader.builder()
                 .numBorrowed(0)
                 .cashPenalty(0)
+                .user(user)
                 .build();
         readerRepository.save(reader);
     }

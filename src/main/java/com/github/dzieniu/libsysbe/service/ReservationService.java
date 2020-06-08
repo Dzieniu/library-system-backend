@@ -41,20 +41,30 @@ public class ReservationService {
     public void reserveBook(long bookId, long readerId){
         Optional<Book> bookResult = bookRepository.findById(bookId);
         Optional<Reader> readerResult = readerRepository.findById(readerId);
-        if(bookResult.isPresent() && readerResult.isPresent()) {
+        if (!bookResult.isPresent()){
+            throw new Exception("Book with id: " + bookId + " not found!");
+        } else if(!readerResult.isPresent()){
+            throw new Exception("Reader with id: " + readerId + " not found!");
+        } else {
             Book book = bookResult.get();
-            if(book.getStatus().equals(BookStatus.AVAILABLE)){
-                book.setStatus(BookStatus.RESERVED);
-                bookRepository.save(book);
-                Reservation reservation = new Reservation();
-                reservation.setOpen(true);
-                reservation.setReader(readerResult.get());
-                reservation.setBook(bookResult.get());
-                reservation.setReservationDate(null);
-                reservation.setReturnDate(null);
-                reservationRepository.save(reservation);
-            } else throw new Exception("Book is unavailable for reservation");
-        } else throw new Exception("Book or reader id is incorrect does not exist, book could not be reserved!");
+            switch (book.getStatus()){
+                case RESERVED:
+                    throw new Exception("Book is already reserved!");
+                case BORROWED:
+                    throw new Exception("Book is already borrowed!");
+                case AVAILABLE:
+                    book.setStatus(BookStatus.RESERVED);
+                    bookRepository.save(book);
+                    Reservation reservation = new Reservation();
+                    reservation.setOpen(true);
+                    reservation.setReader(readerResult.get());
+                    reservation.setBook(bookResult.get());
+                    reservation.setReservationDate(null);
+                    reservation.setReturnDate(null);
+                    reservationRepository.save(reservation);
+                    break;
+            }
+        }
     }
 
     // Zatwierdzenie wypożyczenia książki (bibliotekarz)
